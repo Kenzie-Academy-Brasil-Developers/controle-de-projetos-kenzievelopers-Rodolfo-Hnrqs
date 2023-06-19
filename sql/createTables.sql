@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS "developers"(
     "email" VARCHAR(50) UNIQUE NOT NULL
 );
 
-CREATE TYPE "OS" AS ENUM('Windows', 'Linux', 'MacOs');
+CREATE TYPE "OS" AS ENUM('Windows', 'Linux', 'MacOS');
 CREATE TABLE IF NOT EXISTS "developerInfos"(
     "id" SERIAL PRIMARY KEY,
     "developerSince" DATE NOT NULL,

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { TPreferredOSType } from "../interfaces";
+import AppError from "../errors";
 
 const verifyOS = (req: Request, res: Response, next: NextFunction): void | Response => {
     const { preferredOS } = req.body;
@@ -10,7 +11,7 @@ const verifyOS = (req: Request, res: Response, next: NextFunction): void | Respo
     }
 
     if (!validOS.includes(preferredOS)) {
-        return res.status(400).json({ error: "Invalid OS option." });
+        throw new AppError("Invalid OS option.", 404);
     }
 
     return next();
