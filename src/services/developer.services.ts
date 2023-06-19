@@ -16,7 +16,19 @@ const create = async (payload: developerCreate): Promise<developer> => {
 
 const retrieve = async (developerId: string): Promise<developer> => {
     const query: developerResult = await client.query(
-        'SELECT * FROM "developers" WHERE "id" = $1;',
+        `
+            SELECT
+                "d"."id" AS "developerId",
+                "d"."name" AS "developerName",
+                "d"."email" AS "developerEmail",
+                "i"."developerSince" AS "developerInfoDeveloperSince",
+                "i"."preferredOS" AS "developerInfoPreferredOS"
+            FROM "developers" AS "d"
+            RIGHT JOIN "developerInfos" AS "i"
+                ON "d"."id" = "i"."developerId"
+            WHERE "d"."id" = $1;
+        `
+        ,
         [developerId]
     );
 
